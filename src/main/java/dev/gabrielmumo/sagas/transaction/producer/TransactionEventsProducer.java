@@ -3,8 +3,6 @@ package dev.gabrielmumo.sagas.transaction.producer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.gabrielmumo.sagas.transaction.dto.TransactionEvent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Component;
@@ -13,7 +11,6 @@ import java.util.concurrent.CompletableFuture;
 
 @Component
 public class TransactionEventsProducer {
-    private static final Logger log = LoggerFactory.getLogger(TransactionEventsProducer.class);
     private final KafkaTemplate<Integer, String> kafkaTemplate;
     private final ObjectMapper objectMapper;
 
