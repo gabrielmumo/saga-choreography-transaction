@@ -65,9 +65,11 @@ public class TransactionService {
 
     public void updateTransaction(TransactionEvent transactionEvent) {
         var transaction = repository.findTransaction(transactionEvent.transactionId());
-        if (transaction.isPresent()) {
-            repository.upsertTransaction(transactionEvent);
-        }
+        transaction.ifPresentOrElse(
+                (txn) -> repository.upsertTransaction(transactionEvent),
+                () -> log.error("Transaction confirmation/reconciliation event failed. Transaction was not found {}",
+                        transactionEvent.transactionId())
+        );
     }
 
     public Optional<TransactionEvent> findTransactionEvent(Integer id) {
